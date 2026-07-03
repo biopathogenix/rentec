@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Available Rentals | Elite Properties Ky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.rentals-hero { background:var(--forest); padding:8rem 3rem 3.5rem; }
+.rentals-hero h1 { color:var(--white); font-size:clamp(2rem,4vw,3rem); margin-bottom:.6rem; }
+.rentals-hero p { color:rgba(255,255,255,.65); font-size:.95rem; max-width:520px; line-height:1.75; }
+.hero-stats { display:flex; gap:2.5rem; margin-top:1.75rem; flex-wrap:wrap; }
+.hstat strong { display:block; font-family:'Playfair Display',serif; font-size:1.75rem; color:var(--white); }
+.hstat span { font-size:.7rem; color:rgba(255,255,255,.45); letter-spacing:.08em; text-transform:uppercase; }
+
+.steps-strip { background:var(--forest-dark); padding:1.1rem 3rem; }
+.steps { max-width:1160px; margin:0 auto; display:flex; align-items:center; gap:1.5rem; flex-wrap:wrap; }
+.step { display:flex; align-items:center; gap:.6rem; font-size:.8rem; color:rgba(255,255,255,.6); }
+.step .n { width:22px; height:22px; border-radius:50%; background:var(--burgundy); color:#fff; font-size:.68rem; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
+.step strong { color:rgba(255,255,255,.85); }
+.step-arr { color:rgba(255,255,255,.2); }
+
+/* FILTER BAR */
+.listings-section { background:var(--cream); padding:3.5rem 3rem; }
+.filter-bar { background:var(--white); border:1.5px solid var(--cream-dark); border-radius:8px; padding:1.2rem 1.4rem; margin-bottom:1.5rem; display:flex; flex-wrap:wrap; gap:.85rem; align-items:flex-end; }
+.fg { display:flex; flex-direction:column; gap:.3rem; flex:1; min-width:130px; }
+.fg label { font-size:.69rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); }
+.fg select, .fg input { padding:.55rem .8rem; border:1.5px solid var(--cream-dark); border-radius:5px; font-size:.86rem; font-family:'Inter',sans-serif; color:var(--text); background:var(--white); appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%235a5a5a' stroke-width='1.5' fill='none'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right .7rem center; }
+.fg input { background-image:none; }
+.fg select:focus,.fg input:focus { outline:none; border-color:var(--forest); }
+.filter-actions { display:flex; gap:.5rem; align-items:flex-end; }
+.btn-search { padding:.57rem 1.2rem; background:var(--forest); color:var(--white); border:none; border-radius:5px; font-family:'Inter',sans-serif; font-size:.85rem; font-weight:600; cursor:pointer; }
+.btn-clear { padding:.57rem .9rem; background:transparent; color:var(--muted); border:1.5px solid var(--cream-dark); border-radius:5px; font-family:'Inter',sans-serif; font-size:.84rem; cursor:pointer; }
+#propsCount { font-size:.83rem; color:var(--muted); margin-bottom:1rem; }
+#propsCount strong { color:var(--forest); }
+
+/* PROPERTY CARDS — bigger on rentals page */
+.prop-grid-rentals { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:1.75rem; }
+.prop-card-lg { background:var(--white); border-radius:10px; border:1px solid var(--border); overflow:hidden; transition:transform .2s,box-shadow .2s; }
+.prop-card-lg:hover { transform:translateY(-4px); box-shadow:0 12px 36px rgba(0,0,0,0.1); }
+.prop-card-lg-img { width:100%; height:240px; object-fit:cover; display:block; }
+.prop-card-lg-img-ph { width:100%; height:240px; background:linear-gradient(135deg,#c8d5c8,#a0b8a0); display:flex; align-items:center; justify-content:center; }
+.prop-card-lg-body { padding:1.5rem; }
+.prop-badge { display:inline-block; font-size:.67rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; padding:3px 10px; border-radius:20px; margin-bottom:.6rem; }
+.prop-badge.avail { background:#e8f0e8; color:#1a6b1a; }
+.prop-badge.soon { background:#f5e8eb; color:var(--burgundy); }
+.prop-name-lg { font-family:'Playfair Display',serif; font-size:1.2rem; color:var(--text); margin-bottom:.3rem; }
+.prop-addr { font-size:.82rem; color:var(--muted); margin-bottom:.85rem; }
+.prop-stats-lg { display:flex; gap:1.25rem; font-size:.82rem; color:var(--muted); border-top:1px solid var(--cream-dark); padding-top:.85rem; margin-bottom:.85rem; flex-wrap:wrap; }
+.prop-price-lg { font-size:1.4rem; font-weight:700; color:var(--forest); margin-bottom:1rem; }
+.prop-price-lg small { font-size:.8rem; font-weight:400; color:var(--muted); }
+.prop-desc { font-size:.85rem; color:var(--muted); line-height:1.65; margin-bottom:1.25rem; }
+.prop-btn-row { display:flex; gap:.75rem; flex-wrap:wrap; }
+.btn-apply { display:inline-flex; align-items:center; gap:.4rem; background:var(--burgundy); color:var(--white); padding:.65rem 1.25rem; border-radius:5px; font-size:.85rem; font-weight:700; transition:background .2s; flex:1; justify-content:center; }
+.btn-apply:hover { background:var(--burg-dark); }
+.btn-details { display:inline-flex; align-items:center; gap:.4rem; background:transparent; color:var(--forest); border:1.5px solid var(--forest); padding:.65rem 1.25rem; border-radius:5px; font-size:.85rem; font-weight:600; transition:all .2s; flex:1; justify-content:center; }
+.btn-details:hover { background:var(--forest); color:var(--white); }
+.btn-tour { display:inline-flex; align-items:center; gap:.4rem; background:var(--cream); color:#7c5c2e; border:1.5px solid #c8b090; padding:.65rem 1rem; border-radius:5px; font-size:.82rem; font-weight:600; transition:all .2s; }
+.btn-tour:hover { background:#f0e0c0; }
+
+/* Contact inquiry card */
+.inquiry-card { background:var(--forest); border-radius:10px; padding:2rem; margin-top:2.5rem; display:grid; grid-template-columns:1fr auto; align-items:center; gap:2rem; }
+.inquiry-card h3 { font-family:'Playfair Display',serif; font-size:1.25rem; color:var(--white); margin-bottom:.5rem; }
+.inquiry-card p { color:rgba(255,255,255,.65); font-size:.88rem; }
+.inquiry-card .btn-white { white-space:nowrap; }
+
+/* State boxes */
+.state-center { grid-column:1/-1; text-align:center; padding:4rem 1rem; color:var(--muted); }
+.spinner { width:34px; height:34px; border:3px solid var(--cream-dark); border-top-color:var(--forest); border-radius:50%; animation:spin .75s linear infinite; margin:0 auto 1rem; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+/* Community quick links */
+.comm-quick { background:var(--white); padding:3.5rem 3rem; }
+.comm-quick-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.25rem; margin-top:1.75rem; }
+.cq-card { position:relative; border-radius:8px; overflow:hidden; min-height:190px; display:flex; align-items:flex-end; transition:transform .2s; }
+.cq-card:hover { transform:translateY(-3px); }
+.cq-card img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+.cq-overlay { position:absolute; inset:0; background:linear-gradient(to top,rgba(8,18,8,.88) 0%,transparent 65%); }
+.cq-info { position:relative; z-index:2; padding:1rem 1.1rem; color:var(--white); }
+.cq-info h3 { font-family:'Playfair Display',serif; font-size:1rem; margin-bottom:.2rem; }
+.cq-info span { font-size:.73rem; color:rgba(255,255,255,.65); }
+
+@media(max-width:900px) {
+  .rentals-hero,.listings-section,.comm-quick,.steps-strip { padding-left:1.5rem; padding-right:1.5rem; }
+  .prop-grid-rentals { grid-template-columns:1fr; }
+  .inquiry-card { grid-template-columns:1fr; }
+  .comm-quick-grid { grid-template-columns:1fr; }
+  .prop-btn-row { flex-direction:column; }
+  .btn-apply,.btn-details { flex:none; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Elite Properties Ky</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-dropdown">
+      <a href="#">Properties</a>
+      <div class="dropdown-menu">
+        <a href="pinehurst.html">Pinehurst Reserve Townhomes</a>
+        <a href="curdsville.html">Curdsville Townhomes</a>
+        <a href="crozer.html">Crozer Townhomes</a>
+      </div>
+    </li>
+    <li><a href="rentals.html" class="active">Rentals</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Request a Tour ↘</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO -->
+<div class="rentals-hero">
+  <div class="wrap">
+    <span class="section-label">Live Availability</span>
+    <h1>Available Rentals</h1>
+    <p>Browse every available unit across our Central Kentucky communities. All listings pull directly from Rentec — updated in real time.</p>
+    <div class="hero-stats">
+      <div class="hstat"><strong id="listCount">–</strong><span>Listings Available</span></div>
+      <div class="hstat"><strong>3</strong><span>Communities</span></div>
+      <div class="hstat"><strong>KY</strong><span>Harrodsburg Area</span></div>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="steps-strip">
+  <div class="steps">
+    <div class="step"><span class="n">1</span><span><strong>Browse</strong> listings below</span></div>
+    <span class="step-arr">→</span>
+    <div class="step"><span class="n">2</span><span><strong>Click Apply</strong> on any unit</span></div>
+    <span class="step-arr">→</span>
+    <div class="step"><span class="n">3</span><span><strong>Complete</strong> the application</span></div>
+    <span class="step-arr">→</span>
+    <div class="step"><span class="n">4</span><span><strong>We follow up</strong> within 1 business day</span></div>
+  </div>
+</div>
+
+<!-- LIVE LISTINGS -->
+<div class="listings-section">
+  <div class="wrap">
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="fg" style="flex:2;min-width:170px;">
+        <label>Search</label>
+        <input type="text" id="fSearch" placeholder="Address, community, city…">
+      </div>
+      <div class="fg">
+        <label>Community</label>
+        <select id="fCommunity">
+          <option value="">All Communities</option>
+          <option value="curdsville">Curdsville</option>
+          <option value="pinehurst">Pinehurst Reserve</option>
+          <option value="crozer">Crozer</option>
+          <option value="lyons">Lyons Ave</option>
+          <option value="proctor">Proctor St</option>
+          <option value="cecil">Cecil Street</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Bedrooms</label>
+        <select id="fBeds">
+          <option value="">Any</option>
+          <option value="1">1 Bed</option>
+          <option value="2">2 Beds</option>
+          <option value="3">3 Beds</option>
+          <option value="4">4+ Beds</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Bathrooms</label>
+        <select id="fBaths">
+          <option value="">Any</option>
+          <option value="1">1 Bath</option>
+          <option value="2">2 Baths</option>
+          <option value="3">3+ Baths</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Max Rent</label>
+        <select id="fPrice">
+          <option value="">Any Price</option>
+          <option value="800">Up to $800/mo</option>
+          <option value="1000">Up to $1,000/mo</option>
+          <option value="1200">Up to $1,200/mo</option>
+          <option value="1500">Up to $1,500/mo</option>
+          <option value="2000">Up to $2,000/mo</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Status</label>
+        <select id="fAvail">
+          <option value="">All</option>
+          <option value="available">Available Now</option>
+          <option value="unavailable">Coming Soon</option>
+        </select>
+      </div>
+      <div class="filter-actions">
+        <button class="btn-search" onclick="applyRentalsFilter()">Search</button>
+        <button class="btn-clear" onclick="resetRentalsFilter()">Clear</button>
+      </div>
+    </div>
+
+    <p id="propsCount" style="display:none;"></p>
+
+    <!-- PROPERTY GRID — pulls from Rentec -->
+    <div class="prop-grid-rentals" id="rentalsGrid">
+      <div class="state-center">
+        <div class="spinner"></div>
+        <p>Loading live listings from Rentec…</p>
+      </div>
+    </div>
+
+    <!-- INQUIRY BANNER -->
+    <div class="inquiry-card">
+      <div>
+        <h3>Don't see what you're looking for?</h3>
+        <p>Contact us directly — we may have unlisted units or upcoming availability that fits your needs.</p>
+      </div>
+      <a href="contact.html" class="btn btn-white">Contact Us ↘</a>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMMUNITY QUICK LINKS -->
+<div class="comm-quick">
+  <div class="wrap">
+    <span class="section-label">Browse by Community</span>
+    <h2 class="section-title">Find Your Neighborhood</h2>
+    <p class="section-sub">Looking for a specific area? Jump straight to your community of interest.</p>
+    <div class="comm-quick-grid">
+      <a href="pinehurst.html" class="cq-card">
+        <img src="https://static.wixstatic.com/media/8e1c5f_88a6acd375b24e2f8220c3abd1e22dcf~mv2.jpg/v1/fill/w_800,h_400,al_c,q_80,enc_avif,quality_auto/pinehurst%20reserve%20front.jpg" alt="Pinehurst">
+        <div class="cq-overlay"></div>
+        <div class="cq-info"><h3>Pinehurst Reserve</h3><span>View community ↘</span></div>
+      </a>
+      <a href="curdsville.html" class="cq-card">
+        <img src="https://static.wixstatic.com/media/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg/v1/fit/w_800,h_400,q_90,enc_avif,quality_auto/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg" alt="Curdsville">
+        <div class="cq-overlay"></div>
+        <div class="cq-info"><h3>Curdsville Townhomes</h3><span>View community ↘</span></div>
+      </a>
+      <a href="crozer.html" class="cq-card">
+        <img src="https://static.wixstatic.com/media/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg/v1/fit/w_800,h_400,q_90,enc_avif,quality_auto/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg" alt="Crozer">
+        <div class="cq-overlay"></div>
+        <div class="cq-info"><h3>Crozer Townhomes</h3><span>View community ↘</span></div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Elite Properties Ky</a>
+      <p>Thoughtfully managed rental communities in Central Kentucky.</p>
+      <br>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.32);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">HEAD OFFICE</p>
+      <p style="font-size:.82rem">123-456-7890<br>davron.bowman@biopathigenix.com</p>
+    </div>
+    <div class="footer-col"><h4>Properties</h4><ul>
+      <li><a href="pinehurst.html">Pinehurst Reserve</a></li>
+      <li><a href="curdsville.html">Curdsville Townhomes</a></li>
+      <li><a href="crozer.html">Crozer Townhomes</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul>
+      <li><a href="rentals.html">Available Rentals</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Inquiries</h4>
+      <a href="contact.html" class="footer-cta-btn">GET IN TOUCH ↘</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Elite Properties KY. All rights reserved.</span>
+    <span>⊙ Equal Housing Opportunity</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+const RENTEC_KEY = 'eyJzdWIiOjM2MDAzLCJpYXQiOiIyMDI2LTA3LTAzIDEwOjAyOjIyIiwiaXNzIjoiUmVudGVjIEFQSSBWMyIsInJhbmQiOiI5NjA1ZmQwY2UxZjU5YmY1In0';
+const RENTEC_API = 'https://secure.rentecdirect.com/owners/utilities/property_listings_JSON.php';
+const RENTEC_SITE = 'https://propertymanage.biz/u36003/rentals/listings';
+const MATTERPORT = 'https://my.matterport.com/show/?m=jr7xb9xrBE8';
+
+let ALL_RENTALS = [];
+
+const isAvail = p => ['yes','1','true','available'].includes(String(p.available||p.status||'').toLowerCase());
+const fmtRent = r => (r&&r!=0) ? `$${Number(r).toLocaleString()}<small>/mo</small>` : 'Contact for pricing';
+const getPhoto = p => p.photo_url||p.image||(Array.isArray(p.photos)?p.photos[0]:'')||'';
+
+function buildRentalCard(p) {
+  const photo  = getPhoto(p);
+  const beds   = p.bedrooms||p.beds||'–';
+  const baths  = p.bathrooms||p.baths||'–';
+  const addr   = [p.address,p.city,p.state].filter(Boolean).join(', ')||'Harrodsburg, KY';
+  const avail  = isAvail(p);
+  const detail = p.detail_url||p.listing_url||RENTEC_SITE;
+  const apply  = p.apply_url||RENTEC_SITE;
+  const desc   = p.description||p.desc||'';
+
+  return `
+  <div class="prop-card-lg">
+    ${photo
+      ? `<img class="prop-card-lg-img" src="${photo}" alt="${p.name||'Property'}" loading="lazy">`
+      : `<div class="prop-card-lg-img-ph">
+          <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.4)" stroke-width="1">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
+            <polyline points="9 22 9 12 15 12 15 22"/>
+          </svg>
+         </div>`}
+    <div class="prop-card-lg-body">
+      <span class="prop-badge ${avail?'avail':'soon'}">${avail?'✅ Available Now':'⏳ Coming Soon'}</span>
+      <p class="prop-name-lg">${p.name||p.property_name||'Available Unit'}</p>
+      <p class="prop-addr">📍 ${addr}</p>
+      <div class="prop-stats-lg">
+        <span>🛏 ${beds} Bed${beds!=1?'s':''}</span>
+        <span>🚿 ${baths} Bath${baths!=1?'s':''}</span>
+        ${p.sqft?`<span>📐 ${Number(p.sqft).toLocaleString()} sqft</span>`:''}
+        ${p.rent||p.price?`<span style="color:var(--forest);font-weight:700;">${fmtRent(p.rent||p.price)}</span>`:''}
+      </div>
+      ${desc?`<p class="prop-desc">${desc.substring(0,140)}${desc.length>140?'…':''}</p>`:''}
+      <p class="prop-price-lg">${fmtRent(p.rent||p.price)}</p>
+      <div class="prop-btn-row">
+        <a href="${apply}" target="_blank" rel="noopener" class="btn-apply">Apply Now ↗</a>
+        <a href="${detail}" target="_blank" rel="noopener" class="btn-details">More Details →</a>
+        <a href="${MATTERPORT}" target="_blank" rel="noopener" class="btn-tour">🏠 3D Tour</a>
+      </div>
+      <div style="margin-top:.85rem;padding-top:.85rem;border-top:1px solid var(--cream-dark);">
+        <a href="contact.html?property=${encodeURIComponent(p.name||addr)}" 
+           style="font-size:.82rem;color:var(--muted);font-weight:500;">
+          📧 Inquire about this property →
+        </a>
+      </div>
+    </div>
+  </div>`;
+}
+
+function renderRentals(props) {
+  const grid  = document.getElementById('rentalsGrid');
+  const count = document.getElementById('propsCount');
+  const lc    = document.getElementById('listCount');
+
+  if (lc) lc.textContent = props.length;
+
+  if (!props.length) {
+    grid.innerHTML = `
+      <div class="state-center" style="grid-column:1/-1">
+        <div style="font-size:2.5rem;margin-bottom:.75rem">🏠</div>
+        <h3 style="font-size:1.1rem;color:var(--text);margin-bottom:.5rem">No listings match your filters</h3>
+        <p style="margin-bottom:1.25rem">Try adjusting your filters or contact us directly.</p>
+        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
+          <button onclick="resetRentalsFilter()" class="btn-search">Clear Filters</button>
+          <a href="contact.html" class="btn-details" style="padding:.57rem 1.2rem">Contact Us</a>
+        </div>
+      </div>`;
+    if (count) count.style.display='none';
+    return;
+  }
+
+  grid.innerHTML = props.map(buildRentalCard).join('');
+  if (count) {
+    count.style.display='block';
+    count.innerHTML=`Showing <strong>${props.length}</strong> of <strong>${ALL_RENTALS.length}</strong> propert${ALL_RENTALS.length===1?'y':'ies'}`;
+    count.style.cssText='font-size:.83rem;color:var(--muted);margin-bottom:1rem;display:block;';
+    const strong = count.querySelectorAll('strong');
+    strong.forEach(s=>s.style.color='var(--forest)');
+  }
+}
+
+let RENTALS_FILTERS = {search:'',community:'',beds:'',baths:'',price:'',avail:''};
+
+function applyRentalsFilter() {
+  RENTALS_FILTERS = {
+    search:    (document.getElementById('fSearch')?.value||'').trim().toLowerCase(),
+    community: document.getElementById('fCommunity')?.value||'',
+    beds:      document.getElementById('fBeds')?.value||'',
+    baths:     document.getElementById('fBaths')?.value||'',
+    price:     document.getElementById('fPrice')?.value||'',
+    avail:     document.getElementById('fAvail')?.value||''
+  };
+
+  const filtered = ALL_RENTALS.filter(p => {
+    if (RENTALS_FILTERS.search) {
+      const h=`${p.name||''} ${p.address||''} ${p.city||''} ${p.community||p.group||''}`.toLowerCase();
+      if (!h.includes(RENTALS_FILTERS.search)) return false;
+    }
+    if (RENTALS_FILTERS.community) {
+      const c=`${p.community||p.group||p.name||p.address||''}`.toLowerCase();
+      if (!c.includes(RENTALS_FILTERS.community)) return false;
+    }
+    if (RENTALS_FILTERS.beds) {
+      const b=parseInt(p.bedrooms||p.beds||0);
+      if (RENTALS_FILTERS.beds==='4'){if(b<4)return false;}
+      else if(b!==parseInt(RENTALS_FILTERS.beds))return false;
+    }
+    if (RENTALS_FILTERS.baths) {
+      const b=parseFloat(p.bathrooms||p.baths||0);
+      if (RENTALS_FILTERS.baths==='3'){if(b<3)return false;}
+      else if(b!==parseFloat(RENTALS_FILTERS.baths))return false;
+    }
+    if (RENTALS_FILTERS.price) {
+      if(parseFloat(p.rent||p.price||0)>parseFloat(RENTALS_FILTERS.price))return false;
+    }
+    if (RENTALS_FILTERS.avail==='available'   && !isAvail(p)) return false;
+    if (RENTALS_FILTERS.avail==='unavailable' &&  isAvail(p)) return false;
+    return true;
+  });
+
+  renderRentals(filtered);
+}
+
+function resetRentalsFilter() {
+  ['fSearch','fCommunity','fBeds','fBaths','fPrice','fAvail'].forEach(id=>{
+    const el=document.getElementById(id);if(el)el.value='';
+  });
+  RENTALS_FILTERS={search:'',community:'',beds:'',baths:'',price:'',avail:''};
+  renderRentals(ALL_RENTALS);
+}
+
+// Wire dropdowns
+document.addEventListener('DOMContentLoaded', ()=>{
+  ['fCommunity','fBeds','fBaths','fPrice','fAvail'].forEach(id=>{
+    document.getElementById(id)?.addEventListener('change', applyRentalsFilter);
+  });
+  document.getElementById('fSearch')?.addEventListener('keyup', e=>{
+    if(e.key==='Enter') applyRentalsFilter();
+  });
+});
+
+// Load properties from Rentec
+async function loadRentals() {
+  const grid = document.getElementById('rentalsGrid');
+
+  try {
+    const res = await fetch(RENTEC_API, {
+      method:'POST',
+      mode:'cors',
+      headers:{'Content-Type':'application/x-www-form-urlencoded'},
+      body:`key=${encodeURIComponent(RENTEC_KEY)}`
+    });
+
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const data = await res.json();
+    if (data.errorstring && data.errorstring!=='') throw new Error(data.errorstring);
+
+    ALL_RENTALS = data.properties||[];
+    renderRentals(ALL_RENTALS);
+
+  } catch(err) {
+    console.warn('Rentec API blocked by browser CORS — showing demo + link:', err.message);
+
+    // Show real Rentec listing page as primary option + demo cards
+    ALL_RENTALS = [
+      { name:'Curdsville Rd', address:'Curdsville Rd', city:'Harrodsburg', state:'KY', bedrooms:3, bathrooms:2, sqft:1400, rent:1500, available:'yes', description:'Newly constructed 3 bedroom, 2 bathroom duplex available in Harrodsburg, Kentucky! This beautiful home offers modern finishes, spacious living areas, and scenic views in a convenient location.',
+        photo_url:'https://static.wixstatic.com/media/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg/v1/fit/w_600,h_400,q_90,enc_avif,quality_auto/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg',
+        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
+      { name:'Pinehurst Reserve — Unit A', address:'130 Pinehurst Dr', city:'Harrodsburg', state:'KY', bedrooms:2, bathrooms:2, sqft:1200, rent:1200, available:'yes', description:'Spacious 2 bed 2 bath townhome at Pinehurst Reserve. Open floor plan, natural light throughout, fully equipped kitchen.',
+        photo_url:'https://static.wixstatic.com/media/8e1c5f_88a6acd375b24e2f8220c3abd1e22dcf~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/pinehurst%20reserve%20front.jpg',
+        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
+      { name:'Crozer Townhome', address:'Crozer Lane', city:'Harrodsburg', state:'KY', bedrooms:2, bathrooms:2, sqft:1200, rent:1175, available:'yes', description:'Contemporary townhome with modern finishes and convenient location in Central Kentucky.',
+        photo_url:'https://static.wixstatic.com/media/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg/v1/fit/w_600,h_400,q_90,enc_avif,quality_auto/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg',
+        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
+    ];
+
+    renderRentals(ALL_RENTALS);
+
+    // Add notice below grid
+    document.getElementById('rentalsGrid').insertAdjacentHTML('afterend', `
+      <div style="background:#fffbea;border:1px solid #f0d060;border-radius:8px;padding:1rem 1.25rem;margin-top:1.25rem;font-size:.85rem;color:#7a5c00;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
+        <span>⚡ Showing sample listings. To see all live listings with real-time availability:</span>
+        <a href="${RENTEC_SITE}" target="_blank" style="background:#6b1c2e;color:#fff;padding:.5rem 1rem;border-radius:4px;font-weight:600;font-size:.82rem;white-space:nowrap;">View Live Rentec Listings ↗</a>
+      </div>`);
+  }
+}
+
+document.addEventListener('DOMContentLoaded', loadRentals);
+</script>
+</body>
+</html>
