@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home | Elite Properties Ky</title>
+<meta name="description" content="Find your next home in Central Kentucky. Professionally managed rental communities in Harrodsburg, KY.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">Elite Properties Ky</a>
+  <ul class="nav-links">
+    <li><a href="index.html" class="active">Home</a></li>
+    <li class="nav-dropdown">
+      <a href="#">Properties</a>
+      <div class="dropdown-menu">
+        <a href="pinehurst.html">Pinehurst Reserve Townhomes</a>
+        <a href="curdsville.html">Curdsville Townhomes</a>
+        <a href="crozer.html">Crozer Townhomes</a>
+      </div>
+    </li>
+    <li><a href="rentals.html">Rentals</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Request a Tour ↘</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<!-- HERO WITH FREE STOCK VIDEO -->
+<!-- Using Pexels free stock video of luxury home interior -->
+<!-- Replace the video src with your own video later -->
+<section class="hero" id="home">
+  <video class="hero-video" autoplay muted loop playsinline
+    poster="https://images.pexels.com/photos/1396122/pexels-photo-1396122.jpeg?auto=compress&cs=tinysrgb&w=1920">
+    <source src="https://videos.pexels.com/video-files/3773486/3773486-uhd_2560_1440_25fps.mp4" type="video/mp4">
+    <!-- Fallback static image if video fails -->
+  </video>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-eyebrow">Central Kentucky Rentals</span>
+    <h1>Live Well in the Heart of Central Kentucky</h1>
+    <p class="hero-sub">Thoughtfully managed properties surrounded by the beauty of the Bluegrass. Your next home is closer than you think.</p>
+    <div class="hero-actions">
+      <a href="contact.html" class="btn btn-white">Request a Tour ↘</a>
+      <a href="#properties-section" class="btn btn-outline-white">Explore Properties ↘</a>
+    </div>
+  </div>
+</section>
+
+<!-- LIVE PROPERTIES FROM RENTEC -->
+<section class="section" id="properties-section" style="background:var(--cream);">
+  <div class="wrap">
+    <span class="section-label">Live from Rentec Direct</span>
+    <h2 class="section-title">All Properties</h2>
+    <p class="section-sub">Browse available homes — updated automatically whenever a new listing is added in Rentec.</p>
+
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
+      <div class="fg" style="flex:2;min-width:170px;">
+        <label>Search</label>
+        <input type="text" id="fSearch" placeholder="Address, community, city…">
+      </div>
+      <div class="fg">
+        <label>Community</label>
+        <select id="fCommunity">
+          <option value="">All Communities</option>
+          <option value="curdsville">Curdsville</option>
+          <option value="pinehurst">Pinehurst Reserve</option>
+          <option value="crozer">Crozer</option>
+          <option value="lyons">Lyons Ave</option>
+          <option value="proctor">Proctor St</option>
+          <option value="cecil">Cecil Street</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Bedrooms</label>
+        <select id="fBeds">
+          <option value="">Any</option>
+          <option value="1">1 Bed</option>
+          <option value="2">2 Beds</option>
+          <option value="3">3 Beds</option>
+          <option value="4">4+ Beds</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Bathrooms</label>
+        <select id="fBaths">
+          <option value="">Any</option>
+          <option value="1">1 Bath</option>
+          <option value="2">2 Baths</option>
+          <option value="3">3+ Baths</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Max Rent</label>
+        <select id="fPrice">
+          <option value="">Any Price</option>
+          <option value="800">Up to $800/mo</option>
+          <option value="1000">Up to $1,000/mo</option>
+          <option value="1200">Up to $1,200/mo</option>
+          <option value="1500">Up to $1,500/mo</option>
+          <option value="2000">Up to $2,000/mo</option>
+        </select>
+      </div>
+      <div class="fg">
+        <label>Availability</label>
+        <select id="fAvail">
+          <option value="">All</option>
+          <option value="available">Available Now</option>
+          <option value="unavailable">Coming Soon</option>
+        </select>
+      </div>
+      <div class="filter-actions">
+        <button class="btn-search" onclick="applyFilters()">Search</button>
+        <button class="btn-clear" onclick="resetFilters()">Clear</button>
+      </div>
+    </div>
+    <p id="propsCount" style="display:none;font-size:.83rem;color:var(--muted);margin-bottom:1rem;"></p>
+    <div class="prop-grid" id="propsGrid">
+      <div class="state-center"><div class="spinner"></div><p>Loading properties…</p></div>
+    </div>
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="rentals.html" class="btn btn-outline-forest">View All Available Rentals ↘</a>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITY SHOWCASE -->
+<section class="section" id="communities">
+  <div class="wrap">
+    <span class="section-label">Our Communities</span>
+    <h2 class="section-title">Find Your Place</h2>
+    <p class="section-sub">Three distinct communities — each with its own character, all with the same commitment to quality and care.</p>
+    <div class="community-grid">
+      <a href="pinehurst.html" class="comm-card">
+        <img src="https://static.wixstatic.com/media/8e1c5f_88a6acd375b24e2f8220c3abd1e22dcf~mv2.jpg/v1/fill/w_800,h_600,al_c,q_80,enc_avif,quality_auto/pinehurst%20reserve%20front.jpg" alt="Pinehurst Reserve">
+        <div class="comm-card-overlay"></div>
+        <div class="comm-card-info"><h3>Pinehurst Reserve</h3><p>Peaceful living meets modern design</p><span>Explore ↘</span></div>
+      </a>
+      <a href="curdsville.html" class="comm-card">
+        <img src="https://static.wixstatic.com/media/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg/v1/fit/w_800,h_600,q_90,enc_avif,quality_auto/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg" alt="Curdsville">
+        <div class="comm-card-overlay"></div>
+        <div class="comm-card-info"><h3>Curdsville Townhomes</h3><p>Modern design in a quiet setting</p><span>Explore ↘</span></div>
+      </a>
+      <a href="crozer.html" class="comm-card">
+        <img src="https://static.wixstatic.com/media/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg/v1/fit/w_800,h_600,q_90,enc_avif,quality_auto/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg" alt="Crozer">
+        <div class="comm-card-overlay"></div>
+        <div class="comm-card-info"><h3>Crozer Townhomes</h3><p>Comfort and convenience combined</p><span>Explore ↘</span></div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- 3D VIRTUAL TOUR — MATTERPORT -->
+<div class="tour-section section">
+  <div class="wrap">
+    <span class="section-label">Interactive 3D Tour</span>
+    <h2 class="section-title" style="color:var(--white)">Explore Pinehurst Reserve in 3D</h2>
+    <p class="section-sub" style="color:rgba(255,255,255,0.6);margin-bottom:2rem;">Walk through the property from anywhere. Zoom in, look around, and get a real feel for the space before you visit in person.</p>
+    <div class="tour-frame">
+      <iframe
+        src="https://my.matterport.com/show/?m=jr7xb9xrBE8&brand=0&mls=1&help=0"
+        allowfullscreen
+        allow="xr-spatial-tracking"
+        title="Pinehurst Reserve 3D Virtual Tour">
+      </iframe>
+    </div>
+    <p style="text-align:center;margin-top:1.25rem;">
+      <a href="https://my.matterport.com/show/?m=jr7xb9xrBE8" target="_blank" class="btn btn-outline-white" style="display:inline-flex">
+        Open Full Screen 3D Tour ↗
+      </a>
+    </p>
+  </div>
+</div>
+
+<!-- LIFESTYLE SPLIT -->
+<div class="lifestyle">
+  <div class="lifestyle-inner">
+    <div class="lifestyle-img"></div>
+    <div class="lifestyle-text">
+      <span class="section-label">The Bluegrass Lifestyle</span>
+      <h2>Tucked among rolling hills, horse farms, and historic bourbon trails.</h2>
+      <p>Our properties offer more than a place to live — they offer a place to belong.</p>
+      <p>From quiet mornings overlooking open skies to evenings spent exploring local shops, trails, and restaurants, life here moves at the perfect pace.</p>
+      <a href="contact.html" class="btn btn-outline-white" style="margin-top:.75rem;align-self:flex-start;">Read More ↘</a>
+    </div>
+  </div>
+</div>
+
+<!-- COMMUNITY FEATURE ROWS -->
+<div class="comm-rows">
+  <div class="comm-row">
+    <img class="comm-row-img" src="https://static.wixstatic.com/media/23b958_c63b4e289097448fad026cc8f93c95b8~mv2.jpg/v1/fit/w_960,h_640,q_90,enc_avif,quality_auto/23b958_c63b4e289097448fad026cc8f93c95b8~mv2.jpg" alt="Pinehurst Reserve">
+    <div class="comm-row-text">
+      <span class="section-label">Community</span>
+      <h2>Pinehurst Reserve Townhomes</h2>
+      <p>Welcome to Pinehurst Reserve — where peaceful living meets modern design. Nestled in a quiet corner of Central Kentucky, this community is built for those who want the best of both worlds.</p>
+      <a href="pinehurst.html" class="btn btn-outline-forest">Explore the Property ↘</a>
+      <div class="feature-grid">
+        <div class="feature-item"><img src="https://static.wixstatic.com/media/8e1c5f_5edec4df8f8345e18412c4f353db36b3~mv2.jpg/v1/fill/w_400,h_280,al_c,q_80,enc_avif,quality_auto/Pinehurst%20Reserve%20Retouched%20Optimized%20for%20Web_20.jpg" alt="Living"><h4>Spacious & Welcoming</h4><p>Open floor plans with tons of natural light.</p></div>
+        <div class="feature-item"><img src="https://static.wixstatic.com/media/8e1c5f_df1fcca7f3a74d31aa9508a52b5c37d3~mv2.jpg/v1/fill/w_400,h_280,al_c,q_80,enc_avif,quality_auto/Pinehurst%20Reserve%20Retouched%20Optimized%20for%20Web_16.jpg" alt="Kitchen"><h4>Ready-to-Cook Kitchen</h4><p>Fully equipped with complete appliances.</p></div>
+        <div class="feature-item"><img src="https://static.wixstatic.com/media/8e1c5f_2f93f8d37f744509aaecc9bdccc4d61d~mv2.jpg/v1/fill/w_400,h_280,al_c,q_80,enc_avif,quality_auto/Pinehurst%20Reserve%20Retouched%20Optimized%20for%20Web_19.jpg" alt="Bedroom"><h4>Serene Retreats</h4><p>Bedrooms designed for rest and relaxation.</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="comm-row flip">
+    <img class="comm-row-img" src="https://static.wixstatic.com/media/23b958_6a4a3c3a8d1b416b8bd9cf13ebec25a1~mv2.jpg/v1/fill/w_960,h_640,q_90,enc_avif,quality_auto/23b958_6a4a3c3a8d1b416b8bd9cf13ebec25a1~mv2.jpg" alt="Curdsville">
+    <div class="comm-row-text">
+      <span class="section-label">Community</span>
+      <h2>Curdsville Townhomes</h2>
+      <p>Newly constructed townhomes featuring modern finishes, spacious living areas, and scenic views in a convenient Harrodsburg location.</p>
+      <a href="curdsville.html" class="btn btn-outline-forest">Explore the Property ↘</a>
+    </div>
+  </div>
+  <div class="comm-row">
+    <img class="comm-row-img" src="https://static.wixstatic.com/media/23b958_57499c3244734cce8464cceef54cd14e~mv2.jpg/v1/fit/w_960,h_640,q_90,enc_avif,quality_auto/23b958_57499c3244734cce8464cceef54cd14e~mv2.jpg" alt="Crozer">
+    <div class="comm-row-text">
+      <span class="section-label">Community</span>
+      <h2>Crozer Townhomes</h2>
+      <p>Contemporary townhomes offering spacious layouts, prime location, and comfortable suburban living in the heart of Central Kentucky.</p>
+      <a href="crozer.html" class="btn btn-outline-forest">Explore the Property ↘</a>
+    </div>
+  </div>
+</div>
+
+<!-- WHY CENTRAL KENTUCKY -->
+<section class="section why-section">
+  <div class="wrap">
+    <span class="section-label" style="color:rgba(255,255,255,.38)">Why Central Kentucky?</span>
+    <h2 class="section-title">A Place Worth Calling Home</h2>
+    <p class="section-sub">Whether relocating, downsizing, or planting roots — Central Kentucky offers the balance you've been looking for.</p>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-icon">🌿</div><h3>Natural Beauty</h3><p>Rolling bluegrass hills, horse farms, and bourbon country at your doorstep.</p></div>
+      <div class="why-item"><div class="why-icon">🛣️</div><h3>Accessible Location</h3><p>Easy access to major highways with a peaceful neighborhood feel.</p></div>
+      <div class="why-item"><div class="why-icon">🛍️</div><h3>Close to Everything</h3><p>Minutes from dining, shopping, trails, and entertainment.</p></div>
+      <div class="why-item"><div class="why-icon">🤝</div><h3>Trusted Management</h3><p>Professional management that keeps your experience a top priority.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div class="cta-band">
+  <h2>Your next home may be closer than you think.</h2>
+  <p>Explore our communities or connect with us to check availability and schedule a private tour.</p>
+  <a href="contact.html" class="btn btn-burgundy">Contact Our Property Manager ↘</a>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Elite Properties Ky</a>
+      <p>Thoughtfully managed rental communities in the heart of Central Kentucky.</p>
+      <br>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.32);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">HEAD OFFICE</p>
+      <p style="font-size:.82rem">123-456-7890<br>info@elitepropertiesky.com</p>
+    </div>
+    <div class="footer-col"><h4>Properties</h4><ul><li><a href="pinehurst.html">Pinehurst Reserve</a></li><li><a href="curdsville.html">Curdsville Townhomes</a></li><li><a href="crozer.html">Crozer Townhomes</a></li></ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul><li><a href="rentals.html">Available Rentals</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+    <div class="footer-col"><h4>Inquiries</h4><a href="contact.html" class="footer-cta-btn">GET IN TOUCH ↘</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Elite Properties KY. All rights reserved.</span>
+    <span>⊙ Equal Housing Opportunity</span>
+  </div>
+</footer>
+
+<script src="js/main.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    loadProperties({ gridId:'propsGrid', countId:'propsCount' });
+  });
+</script>
+</body>
+</html>
