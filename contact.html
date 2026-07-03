@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact | Elite Properties Ky</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<style>
+.contact-hero { background: var(--forest); padding: 8rem 3rem 4.5rem; }
+.contact-hero h1 { color: var(--white); font-size: clamp(2rem,4vw,3.2rem); margin-bottom: .5rem; }
+.contact-hero p { color: rgba(255,255,255,.65); font-size: .95rem; max-width: 540px; line-height: 1.75; }
+.contact-body { background: var(--cream); padding: 5rem 3rem; }
+.contact-grid { display: grid; grid-template-columns: 1fr 1.6fr; gap: 4rem; align-items: start; }
+.contact-info h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--text); margin-bottom:1.75rem; }
+.info-block { margin-bottom: 1.75rem; }
+.info-block h4 { font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:var(--burgundy); margin-bottom:.4rem; }
+.info-block p, .info-block a { font-size:.9rem; color:var(--muted); line-height:1.65; }
+.info-block a:hover { color:var(--forest); }
+.contact-form-wrap h2 { font-family:'Playfair Display',serif; font-size:1.5rem; color:var(--text); margin-bottom:.5rem; }
+.contact-form-wrap > p { color:var(--muted); font-size:.9rem; margin-bottom:1.75rem; }
+.form-card { background:var(--white); border-radius:10px; padding:2rem; border:1px solid var(--border); box-shadow:var(--shadow); }
+.form-success { display:none; background:#e8f5e8; border:1px solid #b8d8b8; border-radius:6px; padding:1rem 1.25rem; color:#1a5c1a; font-size:.9rem; margin-top:1rem; }
+.form-error { display:none; background:#f5e8e8; border:1px solid #d8b8b8; border-radius:6px; padding:1rem 1.25rem; color:#5c1a1a; font-size:.9rem; margin-top:1rem; }
+@media(max-width:900px){.contact-hero,.contact-body{padding-left:1.5rem;padding-right:1.5rem;}.contact-grid{grid-template-columns:1fr;gap:2.5rem;}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo">Elite Properties Ky</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li class="nav-dropdown"><a href="#">Properties</a>
+      <div class="dropdown-menu">
+        <a href="pinehurst.html">Pinehurst Reserve Townhomes</a>
+        <a href="curdsville.html">Curdsville Townhomes</a>
+        <a href="crozer.html">Crozer Townhomes</a>
+      </div>
+    </li>
+    <li><a href="rentals.html">Rentals</a></li>
+    <li><a href="contact.html" class="active">Contact</a></li>
+    <li><a href="contact.html" class="nav-cta">Request a Tour ↘</a></li>
+  </ul>
+  <button class="nav-toggle" aria-label="Menu"><span></span><span></span><span></span></button>
+</nav>
+
+<div class="contact-hero">
+  <div class="wrap">
+    <span class="section-label">Reach Out</span>
+    <h1>Get in Touch</h1>
+    <p>Connect with us to check availability and schedule a private tour. Our property manager will personally follow up within 1 business day.</p>
+  </div>
+</div>
+
+<div class="contact-body">
+  <div class="wrap">
+    <div class="contact-grid">
+
+      <!-- LEFT: INFO -->
+      <div class="contact-info">
+        <h2>Connect With Us</h2>
+        <div class="info-block">
+          <h4>Phone</h4>
+          <p><a href="tel:5550000000">(555) 000-0000</a></p>
+        </div>
+        <div class="info-block">
+          <h4>Email</h4>
+          <p><a href="mailto:rajeswarigopu.eee@gmail.com">rajeswarigopu.eee@gmail.com</a></p>
+        </div>
+        <div class="info-block">
+          <h4>Office Hours</h4>
+          <p>Mon – Fri: 9:00 AM – 5:00 PM<br>Sat: By Appointment<br>Sun: Closed</p>
+        </div>
+        <div class="info-block">
+          <h4>Service Area</h4>
+          <p>Harrodsburg, KY and surrounding Central Kentucky communities</p>
+        </div>
+        <div class="info-block">
+          <h4>Our Communities</h4>
+          <p>
+            <a href="pinehurst.html" style="display:block;color:var(--forest);font-weight:500;margin-bottom:.35rem;">→ Pinehurst Reserve Townhomes</a>
+            <a href="curdsville.html" style="display:block;color:var(--forest);font-weight:500;margin-bottom:.35rem;">→ Curdsville Townhomes</a>
+            <a href="crozer.html" style="display:block;color:var(--forest);font-weight:500;">→ Crozer Townhomes</a>
+          </p>
+        </div>
+        <div class="info-block" style="background:var(--white);border-radius:8px;padding:1.1rem;border:1px solid var(--border);">
+          <h4>View Live Listings</h4>
+          <p style="margin-bottom:.75rem">See all currently available properties with photos, pricing, and Apply button.</p>
+          <a href="https://propertymanage.biz/u36003/rentals/listings" target="_blank" class="btn btn-burgundy" style="font-size:.82rem;padding:.6rem 1.1rem;display:inline-flex;">View Listings ↗</a>
+        </div>
+      </div>
+
+      <!-- RIGHT: FORM (Web3Forms → rajeswarigopu.eee@gmail.com) -->
+      <div class="contact-form-wrap">
+        <h2>Send Us a Message</h2>
+        <p>Fill out the form below and we'll respond within 1 business day. All submissions go directly to our property manager.</p>
+
+        <div class="form-card">
+          <form id="contactForm" onsubmit="handleSubmit(event)">
+
+            <!-- ✅ Web3Forms — emails rajeswarigopu.eee@gmail.com -->
+            <input type="hidden" name="access_key" value="5d942abe-395e-4d1a-a95b-030efd0edc16">
+            <input type="hidden" name="subject" value="New Inquiry — Elite Properties KY">
+            <input type="hidden" name="to" value="davron.bowman@biopathigenix.com">
+            <input type="hidden" name="from_name" value="Elite Properties Website">
+            <input type="hidden" name="redirect" value="false">
+            <input type="hidden" name="cc" value="rajeswarigopu.eee@gmail.com">
+            <input type="hidden" name="replyto" value="davron.bowman@biopathigenix.com">
+            <!-- Honeypot spam protection -->
+            <input type="checkbox" name="botcheck" style="display:none">
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="firstName">First Name *</label>
+                <input type="text" id="firstName" name="firstName" required placeholder="Jane">
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Smith">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" name="email" required placeholder="jane@email.com">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="(555) 000-0000">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="interest">Interested In</label>
+                <select id="interest" name="interest">
+                  <option value="">Select a community or topic…</option>
+                  <option value="Pinehurst Reserve">Pinehurst Reserve Townhomes</option>
+                  <option value="Curdsville Townhomes">Curdsville Townhomes</option>
+                  <option value="Crozer Townhomes">Crozer Townhomes</option>
+                  <option value="General Inquiry">General Inquiry</option>
+                  <option value="Request a Tour">Request a Tour</option>
+                  <option value="Check Availability">Check Availability</option>
+                </select>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group full">
+                <label for="message">Message *</label>
+                <textarea id="message" name="message" required placeholder="Tell us about what you're looking for — move-in timeline, number of bedrooms, any questions…"></textarea>
+              </div>
+            </div>
+
+            <button type="submit" id="submitBtn"
+              class="btn btn-burgundy"
+              style="width:100%;justify-content:center;padding:.85rem;margin-top:.5rem;font-size:.95rem;">
+              Send Message ↘
+            </button>
+          </form>
+
+          <div class="form-success" id="formSuccess">
+            ✓ Thank you! Your message has been sent. We'll be in touch within 1 business day.
+          </div>
+          <div class="form-error" id="formError">
+            ⚠ Something went wrong. Please try again or email us at
+            <a href="mailto:rajeswarigopu.eee@gmail.com">rajeswarigopu.eee@gmail.com</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="index.html" class="footer-logo">Elite Properties Ky</a>
+      <p>Thoughtfully managed rental communities in Central Kentucky.</p>
+      <br>
+      <p style="font-size:.72rem;color:rgba(255,255,255,.32);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">HEAD OFFICE</p>
+      <p style="font-size:.82rem">123-456-7890<br>rajeswarigopu.eee@gmail.com</p>
+    </div>
+    <div class="footer-col"><h4>Properties</h4><ul>
+      <li><a href="pinehurst.html">Pinehurst Reserve</a></li>
+      <li><a href="curdsville.html">Curdsville Townhomes</a></li>
+      <li><a href="crozer.html">Crozer Townhomes</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Connect</h4><ul>
+      <li><a href="rentals.html">Available Rentals</a></li>
+      <li><a href="contact.html">Contact Us</a></li>
+    </ul></div>
+    <div class="footer-col"><h4>Inquiries</h4>
+      <a href="contact.html" class="footer-cta-btn">GET IN TOUCH ↘</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 Elite Properties KY. All rights reserved.</span>
+    <span>⊙ Equal Housing Opportunity</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+async function handleSubmit(e) {
+  e.preventDefault();
+  const form    = e.target;
+  const btn     = document.getElementById('submitBtn');
+  const success = document.getElementById('formSuccess');
+  const error   = document.getElementById('formError');
+
+  // Reset states
+  success.style.display = 'none';
+  error.style.display   = 'none';
+  btn.disabled          = true;
+  btn.textContent       = 'Sending…';
+
+  try {
+    const formData = new FormData(form);
+    const res = await fetch('https://api.web3forms.com/submit', {
+      method:  'POST',
+      headers: { 'Accept': 'application/json' },
+      body:    formData
+    });
+
+    const data = await res.json();
+
+    if (data.success) {
+      form.style.display    = 'none';
+      success.style.display = 'block';
+    } else {
+      throw new Error(data.message || 'Submission failed');
+    }
+  } catch (err) {
+    console.error('Form error:', err);
+    error.style.display = 'block';
+    btn.disabled        = false;
+    btn.textContent     = 'Send Message ↘';
+  }
+}
+</script>
+</body>
+</html>
