@@ -144,6 +144,37 @@
 <div class="listings-section">
   <div class="wrap">
 
+    <!-- DIRECT RENTEC LISTING EMBED — Always shows live data -->
+    <div style="margin-bottom:2.5rem;">
+      <div style="background:var(--forest);border-radius:10px 10px 0 0;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem;">
+        <div>
+          <p style="color:var(--white);font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;margin-bottom:.2rem;">Live Available Rentals</p>
+          <p style="color:rgba(255,255,255,.6);font-size:.8rem;">Powered by Rentec Direct — updates automatically</p>
+        </div>
+        <span style="display:inline-flex;align-items:center;gap:.4rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:var(--white);font-size:.7rem;font-weight:600;padding:.32rem .85rem;border-radius:20px;letter-spacing:.06em;text-transform:uppercase;">
+          <span style="width:7px;height:7px;border-radius:50%;background:#4cff72;animation:pulse 1.5s ease-in-out infinite;display:inline-block;"></span>
+          Live Now
+        </span>
+      </div>
+      <div style="border:1px solid var(--border);border-top:none;border-radius:0 0 10px 10px;overflow:hidden;background:var(--white);">
+        <iframe
+          src="https://propertymanage.biz/u36003/rentals/listings"
+          style="width:100%;min-height:800px;border:none;display:block;"
+          title="Elite Properties — Live Rental Listings"
+          loading="lazy">
+        </iframe>
+        <div style="padding:1rem 1.5rem;text-align:center;border-top:1px solid var(--cream-dark);">
+          <a href="https://propertymanage.biz/u36003/rentals/listings" target="_blank"
+             style="color:var(--burgundy);font-size:.85rem;font-weight:600;text-decoration:none;">
+            Open listings in full screen ↗
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <hr style="border:none;border-top:1px solid var(--cream-dark);margin:2.5rem 0;">
+    <p style="font-size:.95rem;font-weight:600;color:var(--text);margin-bottom:1.5rem;">Or browse with our filters below:</p>
+
     <!-- FILTER BAR -->
     <div class="filter-bar">
       <div class="fg" style="flex:2;min-width:170px;">
@@ -262,7 +293,7 @@
       <p>Thoughtfully managed rental communities in Central Kentucky.</p>
       <br>
       <p style="font-size:.72rem;color:rgba(255,255,255,.32);font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-bottom:.4rem">HEAD OFFICE</p>
-      <p style="font-size:.82rem">123-456-7890<br>davron.bowman@biopathigenix.com</p>
+      <p style="font-size:.82rem">(859) 325-8778<br>elitepropertyllcky@gmail.com</p>
     </div>
     <div class="footer-col"><h4>Properties</h4><ul>
       <li><a href="pinehurst.html">Pinehurst Reserve</a></li>
@@ -285,203 +316,9 @@
 
 <script src="main.js"></script>
 <script>
-const RENTEC_KEY = 'eyJzdWIiOjM2MDAzLCJpYXQiOiIyMDI2LTA3LTAzIDEwOjAyOjIyIiwiaXNzIjoiUmVudGVjIEFQSSBWMyIsInJhbmQiOiI5NjA1ZmQwY2UxZjU5YmY1In0';
-const RENTEC_API = 'https://secure.rentecdirect.com/owners/utilities/property_listings_JSON.php';
-const RENTEC_SITE = 'https://propertymanage.biz/u36003/rentals/listings';
-const MATTERPORT = 'https://my.matterport.com/show/?m=jr7xb9xrBE8';
-
-let ALL_RENTALS = [];
-
-const isAvail = p => ['yes','1','true','available'].includes(String(p.available||p.status||'').toLowerCase());
-const fmtRent = r => (r&&r!=0) ? `$${Number(r).toLocaleString()}<small>/mo</small>` : 'Contact for pricing';
-const getPhoto = p => p.photo_url||p.image||(Array.isArray(p.photos)?p.photos[0]:'')||'';
-
-function buildRentalCard(p) {
-  const photo  = getPhoto(p);
-  const beds   = p.bedrooms||p.beds||'–';
-  const baths  = p.bathrooms||p.baths||'–';
-  const addr   = [p.address,p.city,p.state].filter(Boolean).join(', ')||'Harrodsburg, KY';
-  const avail  = isAvail(p);
-  const detail = p.detail_url||p.listing_url||RENTEC_SITE;
-  const apply  = p.apply_url||RENTEC_SITE;
-  const desc   = p.description||p.desc||'';
-
-  return `
-  <div class="prop-card-lg">
-    ${photo
-      ? `<img class="prop-card-lg-img" src="${photo}" alt="${p.name||'Property'}" loading="lazy">`
-      : `<div class="prop-card-lg-img-ph">
-          <svg width="48" height="48" fill="none" viewBox="0 0 24 24" stroke="rgba(255,255,255,0.4)" stroke-width="1">
-            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/>
-            <polyline points="9 22 9 12 15 12 15 22"/>
-          </svg>
-         </div>`}
-    <div class="prop-card-lg-body">
-      <span class="prop-badge ${avail?'avail':'soon'}">${avail?'✅ Available Now':'⏳ Coming Soon'}</span>
-      <p class="prop-name-lg">${p.name||p.property_name||'Available Unit'}</p>
-      <p class="prop-addr">📍 ${addr}</p>
-      <div class="prop-stats-lg">
-        <span>🛏 ${beds} Bed${beds!=1?'s':''}</span>
-        <span>🚿 ${baths} Bath${baths!=1?'s':''}</span>
-        ${p.sqft?`<span>📐 ${Number(p.sqft).toLocaleString()} sqft</span>`:''}
-        ${p.rent||p.price?`<span style="color:var(--forest);font-weight:700;">${fmtRent(p.rent||p.price)}</span>`:''}
-      </div>
-      ${desc?`<p class="prop-desc">${desc.substring(0,140)}${desc.length>140?'…':''}</p>`:''}
-      <p class="prop-price-lg">${fmtRent(p.rent||p.price)}</p>
-      <div class="prop-btn-row">
-        <a href="${apply}" target="_blank" rel="noopener" class="btn-apply">Apply Now ↗</a>
-        <a href="${detail}" target="_blank" rel="noopener" class="btn-details">More Details →</a>
-        <a href="${MATTERPORT}" target="_blank" rel="noopener" class="btn-tour">🏠 3D Tour</a>
-      </div>
-      <div style="margin-top:.85rem;padding-top:.85rem;border-top:1px solid var(--cream-dark);">
-        <a href="contact.html?property=${encodeURIComponent(p.name||addr)}" 
-           style="font-size:.82rem;color:var(--muted);font-weight:500;">
-          📧 Inquire about this property →
-        </a>
-      </div>
-    </div>
-  </div>`;
-}
-
-function renderRentals(props) {
-  const grid  = document.getElementById('rentalsGrid');
-  const count = document.getElementById('propsCount');
-  const lc    = document.getElementById('listCount');
-
-  if (lc) lc.textContent = props.length;
-
-  if (!props.length) {
-    grid.innerHTML = `
-      <div class="state-center" style="grid-column:1/-1">
-        <div style="font-size:2.5rem;margin-bottom:.75rem">🏠</div>
-        <h3 style="font-size:1.1rem;color:var(--text);margin-bottom:.5rem">No listings match your filters</h3>
-        <p style="margin-bottom:1.25rem">Try adjusting your filters or contact us directly.</p>
-        <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;">
-          <button onclick="resetRentalsFilter()" class="btn-search">Clear Filters</button>
-          <a href="contact.html" class="btn-details" style="padding:.57rem 1.2rem">Contact Us</a>
-        </div>
-      </div>`;
-    if (count) count.style.display='none';
-    return;
-  }
-
-  grid.innerHTML = props.map(buildRentalCard).join('');
-  if (count) {
-    count.style.display='block';
-    count.innerHTML=`Showing <strong>${props.length}</strong> of <strong>${ALL_RENTALS.length}</strong> propert${ALL_RENTALS.length===1?'y':'ies'}`;
-    count.style.cssText='font-size:.83rem;color:var(--muted);margin-bottom:1rem;display:block;';
-    const strong = count.querySelectorAll('strong');
-    strong.forEach(s=>s.style.color='var(--forest)');
-  }
-}
-
-let RENTALS_FILTERS = {search:'',community:'',beds:'',baths:'',price:'',avail:''};
-
-function applyRentalsFilter() {
-  RENTALS_FILTERS = {
-    search:    (document.getElementById('fSearch')?.value||'').trim().toLowerCase(),
-    community: document.getElementById('fCommunity')?.value||'',
-    beds:      document.getElementById('fBeds')?.value||'',
-    baths:     document.getElementById('fBaths')?.value||'',
-    price:     document.getElementById('fPrice')?.value||'',
-    avail:     document.getElementById('fAvail')?.value||''
-  };
-
-  const filtered = ALL_RENTALS.filter(p => {
-    if (RENTALS_FILTERS.search) {
-      const h=`${p.name||''} ${p.address||''} ${p.city||''} ${p.community||p.group||''}`.toLowerCase();
-      if (!h.includes(RENTALS_FILTERS.search)) return false;
-    }
-    if (RENTALS_FILTERS.community) {
-      const c=`${p.community||p.group||p.name||p.address||''}`.toLowerCase();
-      if (!c.includes(RENTALS_FILTERS.community)) return false;
-    }
-    if (RENTALS_FILTERS.beds) {
-      const b=parseInt(p.bedrooms||p.beds||0);
-      if (RENTALS_FILTERS.beds==='4'){if(b<4)return false;}
-      else if(b!==parseInt(RENTALS_FILTERS.beds))return false;
-    }
-    if (RENTALS_FILTERS.baths) {
-      const b=parseFloat(p.bathrooms||p.baths||0);
-      if (RENTALS_FILTERS.baths==='3'){if(b<3)return false;}
-      else if(b!==parseFloat(RENTALS_FILTERS.baths))return false;
-    }
-    if (RENTALS_FILTERS.price) {
-      if(parseFloat(p.rent||p.price||0)>parseFloat(RENTALS_FILTERS.price))return false;
-    }
-    if (RENTALS_FILTERS.avail==='available'   && !isAvail(p)) return false;
-    if (RENTALS_FILTERS.avail==='unavailable' &&  isAvail(p)) return false;
-    return true;
-  });
-
-  renderRentals(filtered);
-}
-
-function resetRentalsFilter() {
-  ['fSearch','fCommunity','fBeds','fBaths','fPrice','fAvail'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.value='';
-  });
-  RENTALS_FILTERS={search:'',community:'',beds:'',baths:'',price:'',avail:''};
-  renderRentals(ALL_RENTALS);
-}
-
-// Wire dropdowns
-document.addEventListener('DOMContentLoaded', ()=>{
-  ['fCommunity','fBeds','fBaths','fPrice','fAvail'].forEach(id=>{
-    document.getElementById(id)?.addEventListener('change', applyRentalsFilter);
-  });
-  document.getElementById('fSearch')?.addEventListener('keyup', e=>{
-    if(e.key==='Enter') applyRentalsFilter();
-  });
+document.addEventListener('DOMContentLoaded', () => {
+  loadProperties({ gridId:'rentalsGrid', countId:'propsCount', large:true });
 });
-
-// Load properties from Rentec
-async function loadRentals() {
-  const grid = document.getElementById('rentalsGrid');
-
-  try {
-    const res = await fetch(RENTEC_API, {
-      method:'POST',
-      mode:'cors',
-      headers:{'Content-Type':'application/x-www-form-urlencoded'},
-      body:`key=${encodeURIComponent(RENTEC_KEY)}`
-    });
-
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-    if (data.errorstring && data.errorstring!=='') throw new Error(data.errorstring);
-
-    ALL_RENTALS = data.properties||[];
-    renderRentals(ALL_RENTALS);
-
-  } catch(err) {
-    console.warn('Rentec API blocked by browser CORS — showing demo + link:', err.message);
-
-    // Show real Rentec listing page as primary option + demo cards
-    ALL_RENTALS = [
-      { name:'Curdsville Rd', address:'Curdsville Rd', city:'Harrodsburg', state:'KY', bedrooms:3, bathrooms:2, sqft:1400, rent:1500, available:'yes', description:'Newly constructed 3 bedroom, 2 bathroom duplex available in Harrodsburg, Kentucky! This beautiful home offers modern finishes, spacious living areas, and scenic views in a convenient location.',
-        photo_url:'https://static.wixstatic.com/media/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg/v1/fit/w_600,h_400,q_90,enc_avif,quality_auto/23b958_ae3217a0ced340349d65001fec90b6ee~mv2.jpg',
-        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
-      { name:'Pinehurst Reserve — Unit A', address:'130 Pinehurst Dr', city:'Harrodsburg', state:'KY', bedrooms:2, bathrooms:2, sqft:1200, rent:1200, available:'yes', description:'Spacious 2 bed 2 bath townhome at Pinehurst Reserve. Open floor plan, natural light throughout, fully equipped kitchen.',
-        photo_url:'https://static.wixstatic.com/media/8e1c5f_88a6acd375b24e2f8220c3abd1e22dcf~mv2.jpg/v1/fill/w_600,h_400,al_c,q_80,enc_avif,quality_auto/pinehurst%20reserve%20front.jpg',
-        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
-      { name:'Crozer Townhome', address:'Crozer Lane', city:'Harrodsburg', state:'KY', bedrooms:2, bathrooms:2, sqft:1200, rent:1175, available:'yes', description:'Contemporary townhome with modern finishes and convenient location in Central Kentucky.',
-        photo_url:'https://static.wixstatic.com/media/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg/v1/fit/w_600,h_400,q_90,enc_avif,quality_auto/23b958_34b740e070714d919759ac3b581544b1~mv2.jpg',
-        detail_url:RENTEC_SITE, apply_url:RENTEC_SITE },
-    ];
-
-    renderRentals(ALL_RENTALS);
-
-    // Add notice below grid
-    document.getElementById('rentalsGrid').insertAdjacentHTML('afterend', `
-      <div style="background:#fffbea;border:1px solid #f0d060;border-radius:8px;padding:1rem 1.25rem;margin-top:1.25rem;font-size:.85rem;color:#7a5c00;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;">
-        <span>⚡ Showing sample listings. To see all live listings with real-time availability:</span>
-        <a href="${RENTEC_SITE}" target="_blank" style="background:#6b1c2e;color:#fff;padding:.5rem 1rem;border-radius:4px;font-weight:600;font-size:.82rem;white-space:nowrap;">View Live Rentec Listings ↗</a>
-      </div>`);
-  }
-}
-
-document.addEventListener('DOMContentLoaded', loadRentals);
 </script>
 </body>
 </html>
